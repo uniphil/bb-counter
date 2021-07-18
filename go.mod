@@ -1,3 +1,3 @@
-module github.com/uniphil/fly-ip-mixer
+module github.com/uniphil/fly-counter
 
 go 1.16
