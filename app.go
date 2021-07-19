@@ -79,7 +79,7 @@ func beep(w http.ResponseWriter, r *http.Request) {
 	gpc := r.Header.Get("Sec-GPC") == "1" || r.FormValue("gpc") == "1"
 
 	if gpc {
-		log.Println("gpc")
+		log.Println(site, "gpc:")
 		fmt.Fprintf(w, "who dis")
 		return
 	}
