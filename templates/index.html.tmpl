@@ -7,5 +7,12 @@
 {{ if .Region }}
 <h2>I'm running in the {{.Region}} region</h2>
 {{end}}
+<script type="text/javascript">
+;fetch('http://localhost:8080/beep/'+location.host,{
+    method: 'POST',
+    credentials: 'include',
+    body: new URLSearchParams(Navigator.globalPrivacyControl
+        ? {'gpc':1} : {'path':location.pathname})});
+</script>
 </body>
 </html>

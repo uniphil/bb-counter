@@ -1,3 +1,3 @@
-module github.com/uniphil/fly-counter
+module github.com/uniphil/bb-counter
 
 go 1.16

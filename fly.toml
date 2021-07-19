@@ -1,15 +1,16 @@
-# fly.toml file generated for fly-counter on 2021-07-18T16:12:52-04:00
+# fly.toml file generated for bb-counter on 2021-07-18T18:43:38-04:00
 
-app = "fly-counter"
+app = "bb-counter"
 
 kill_signal = "SIGINT"
 kill_timeout = 5
 
 [build]
-  builtin = "go"
+  builder = "paketobuildpacks/builder:base"
+  buildpacks = ["gcr.io/paketo-buildpacks/go"]
 
 [env]
-  PORT = "8090"
+  PORT = "8080"
 
 [experimental]
   allowed_public_ports = []
@@ -17,7 +18,7 @@ kill_timeout = 5
 
 [[services]]
   http_checks = []
-  internal_port = 8090
+  internal_port = 8080
   protocol = "tcp"
   script_checks = []
 
