@@ -98,18 +98,36 @@ func beep(w http.ResponseWriter, r *http.Request) {
 
 	cookie, no_cookie_err := r.Cookie("returning");
 	returning := no_cookie_err == nil
-	log.Println("path", path, "returning?", returning)
-
 	if returning && cookie.Value != "true" {
 		w.WriteHeader(http.StatusBadRequest)
 		fmt.Fprintf(w, "400 bad cookie content")
 		return
 	}
+
+	cookie, no_cookie_err = r.Cookie("in_session");
+	in_session := no_cookie_err == nil
+	if in_session && cookie.Value != "true" {
+		w.WriteHeader(http.StatusBadRequest)
+		fmt.Fprintf(w, "400 bad cookie content in session")
+		return
+	}
+
+	log.Println(site, "session:", in_session, "returning:", returning, path)
+
 	http.SetCookie(w, &http.Cookie {
 		Name: "returning",
 		Value: "true",
 		Path: r.URL.Path,
 		Expires: inThreeishWeeks(time.Now()),
+		Secure: true,
+		HttpOnly: true,
+	})
+
+	http.SetCookie(w, &http.Cookie {
+		Name: "in_session",
+		Value: "true",
+		Path: r.URL.Path,
+		// no expires: this cookie should only survive the current session
 		Secure: true,
 		HttpOnly: true,
 	})
